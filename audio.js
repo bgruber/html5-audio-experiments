@@ -52,10 +52,29 @@ function requestSoundData(soundData) {
         return; // no sound selected
     }
 
+    square(soundData);
+}
+
+function sine(soundData) {
     var k = 2* Math.PI * frequency / sampleRate;
+
     for (var i=0, size=soundData.length; i<size; i++) {
         soundData[i] = Math.sin(k * currentSoundSample++);
     }        
+}
+
+function square(soundData) {
+    var k = 2* Math.PI * frequency / sampleRate;
+
+    var overtones = 20;
+    for (var i=0, size=soundData.length; i<size; i++) {
+        soundData[i] = 0;
+        for(var j=0; j != overtones; j++) {
+            var o = 2*j + 1;
+            soundData[i] += 1/o * Math.sin(o * k * currentSoundSample);
+        }
+        currentSoundSample++;
+    }
 }
 
 var audioDestination = new AudioDataDestination(sampleRate, requestSoundData);
