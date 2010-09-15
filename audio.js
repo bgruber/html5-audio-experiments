@@ -59,7 +59,7 @@ function sine(soundData) {
     var k = 2* Math.PI * frequency / sampleRate;
 
     for (var i=0, size=soundData.length; i<size; i++) {
-        soundData[i] = Math.sin(k * currentSoundSample++);
+        soundData[i] = volume *= Math.sin(k * currentSoundSample++);
     }        
 }
 
@@ -73,11 +73,16 @@ function square(soundData) {
             var o = 2*j + 1;
             soundData[i] += 1/o * Math.sin(o * k * currentSoundSample);
         }
+        soundData[i] *= volume;
         currentSoundSample++;
     }
 }
 
 var audioDestination = new AudioDataDestination(sampleRate, requestSoundData);
+var volume = 1.0;
+function setVolume() {
+    volume = parseFloat(document.getElementById("vol").value);
+}
 
 function start() {
     currentSoundSample = 0;

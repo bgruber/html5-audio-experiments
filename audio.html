@@ -4,10 +4,19 @@
     <title>JavaScript Audio Write Example</title>
   </head>
   <body>
-    <input type="text" size="4" id="freq" value="440" />
-    <label for="hz">Hz</label>
-    <button onclick="start()">play</button>
-    <button onclick="stop()">stop</button>
+    <div id="audio_controls">
+      <button onclick="start()">play</button>
+      <button onclick="stop()">stop</button>
+      <span id="volume_control">
+        <input type="text" id="vol" size="3" value="1.0"
+               onchange="setVolume()"/>
+        <label for="vol">Volume</label>
+      </span>
+    </div>
+    <div id="synth_controls">
+      <input type="text" size="4" id="freq" value="440" />
+      <label for="hz">Hz</label>
+    </div>
     <script type="text/javascript" src="audio.js"></script>
   </body>
 </html>
